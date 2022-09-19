@@ -1,10 +1,12 @@
 #ifndef BATMOBILE_LIBRARY_BATMOBILE_H
 #define BATMOBILE_LIBRARY_BATMOBILE_H
 
+#include <Arduino.h>
+#include <CircuitOS.h>
 #include <Display/Display.h>
-#include <Input/InputShift.h>
-#include "Pins.hpp"
-#include <Audio/Piezo.h>
+#include <WiFi.h>
+#include <SPIFFS.h>
+#include <Loop/LoopManager.h>
 
 class BatmobileImpl {
 public:
@@ -12,11 +14,9 @@ public:
 	void begin();
 
 	Display* getDisplay();
-	Input* getInput();
 
 private:
 	Display display;
-	InputShift input;
 };
 
 extern BatmobileImpl Batmobile;

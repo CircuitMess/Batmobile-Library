@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(Batmobile-Library)
 set(PORT COM3)
-set(DEVICE cm:esp32:chatter)
+set(DEVICE cm:esp32:wheelson)
 set(CMAKE_CXX_STANDARD 17)
 
 set(ROOT ${CMAKE_SOURCE_DIR})
@@ -31,6 +31,7 @@ include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/incl
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/nvs_flash)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/driver)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/driver/driver)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/tools/sdk/include/esp32-camera/)
 
 # Include directories
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/Wire/src)

@@ -4,43 +4,32 @@
 
 BatmobileImpl Batmobile;
 
-BatmobileImpl::BatmobileImpl() : display(160, 128, -1, 3), input(INPUT_DATA, INPUT_CLOCK, INPUT_LOAD, 16){
+BatmobileImpl::BatmobileImpl() : display(160, 128, -1, -1){
 
 }
 
 void BatmobileImpl::begin(){
-	pinMode(PIN_BL, OUTPUT);
-	digitalWrite(PIN_BL, false);
+	if(psramFound()){
+		Serial.printf("PSRAM init: %s, free: %d B\n", psramInit() ? "Yes" : "No", ESP.getFreePsram());
+	}else{
+		Serial.println("No PSRAM detected");
+	}
 
-	Piezo.begin(PIN_BUZZ);
-	Piezo.noTone();
+	disableCore0WDT();
+	disableCore1WDT();
 
-	display.begin();
-	display.getTft()->setRotation(1);
-	display.swapBytes(false);
-	display.getBaseSprite()->clear(TFT_BLACK);
-	display.commit();
+	WiFi.mode(WIFI_OFF);
+	btStop();
 
 	if(!SPIFFS.begin()){
-		Serial.println("SPIFFS failed");
+		Serial.println("SPIFFS error");
+		for(;;);
 	}
 
-
-	input.begin();
-
-	Vector<uint8_t> buttons;
-	for(int i = 0; i < 16; i++){
-		buttons.push_back(i);
-	}
-	input.preregisterButtons(buttons);
-
-	LoopManager::addListener(&input);
+	display.begin();
 }
 
 Display* BatmobileImpl::getDisplay(){
 	return &display;
 }
 
-Input* BatmobileImpl::getInput(){
-	return &input;
-}

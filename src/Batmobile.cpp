@@ -4,7 +4,7 @@
 
 BatmobileImpl Batmobile;
 
-BatmobileImpl::BatmobileImpl() : display(160, 128, -1, -1){
+BatmobileImpl::BatmobileImpl(){
 
 }
 
@@ -23,13 +23,6 @@ void BatmobileImpl::begin(){
 
 	if(!SPIFFS.begin()){
 		Serial.println("SPIFFS error");
-		for(;;);
 	}
-
-	display.begin();
-}
-
-Display* BatmobileImpl::getDisplay(){
-	return &display;
 }
 

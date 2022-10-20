@@ -13,10 +13,9 @@ public:
 	BatmobileImpl();
 	void begin();
 
-	Display* getDisplay();
-
 private:
-	Display display;
+
+
 };
 
 extern BatmobileImpl Batmobile;

@@ -5,6 +5,7 @@
 #include <SPI.h>
 #include <DriveMode.h>
 #include <memory>
+#include <FS.h>
 
 class S3Interface {
 private:

@@ -3,6 +3,7 @@
 #include <Loop/LoopManager.h>
 
 BatmobileImpl Batmobile;
+MotorControl Motors;
 S3Interface S3;
 
 BatmobileImpl::BatmobileImpl(){
@@ -10,6 +11,8 @@ BatmobileImpl::BatmobileImpl(){
 }
 
 void BatmobileImpl::begin(){
+	Motors.begin();
+
 	if(psramFound()){
 		Serial.printf("PSRAM init: %s, free: %d B\n", psramInit() ? "Yes" : "No", ESP.getFreePsram());
 	}else{

@@ -3,6 +3,7 @@
 #include <Loop/LoopManager.h>
 
 BatmobileImpl Batmobile;
+S3Interface S3;
 
 BatmobileImpl::BatmobileImpl(){
 

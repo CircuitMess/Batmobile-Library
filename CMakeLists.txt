@@ -45,6 +45,7 @@ include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/Open
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/LovyanGFX/src)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/Update/src)
 include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/CircuitOS/src)
+include_directories(${Arduino15}/packages/cm/hardware/esp32/1.5.1/libraries/Batmobile-Common/src)
 
 # Source directories
 file(GLOB_RECURSE SOURCES "src/**.cpp" "src/**.c" "src/**.hpp" "src/**.h")

@@ -24,5 +24,7 @@ void BatmobileImpl::begin(){
 	if(!SPIFFS.begin()){
 		Serial.println("SPIFFS error");
 	}
+
+	S3.begin();
 }
 

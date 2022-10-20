@@ -12,6 +12,8 @@ std::unique_ptr<S3Interface::DriveInfo> S3Interface::getFrame(){
 	auto info = std::make_unique<DriveInfo>();
 	info->mode = state;
 
+	if(state == Idle) return info;
+
 	extern const uint8_t Frame[];
 	extern const size_t FrameSize;
 

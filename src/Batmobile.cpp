@@ -3,6 +3,7 @@
 #include <Loop/LoopManager.h>
 
 BatmobileImpl Batmobile;
+S3Interface S3;
 
 BatmobileImpl::BatmobileImpl(){
 
@@ -24,5 +25,7 @@ void BatmobileImpl::begin(){
 	if(!SPIFFS.begin()){
 		Serial.println("SPIFFS error");
 	}
+
+	S3.begin();
 }
 

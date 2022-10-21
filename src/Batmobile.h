@@ -9,6 +9,7 @@
 #include <SPIFFS.h>
 #include <Loop/LoopManager.h>
 #include "S3Interface.h"
+#include "Motors.h"
 
 class BatmobileImpl {
 public:
@@ -21,6 +22,7 @@ private:
 };
 
 extern BatmobileImpl Batmobile;
+extern MotorControl Motors;
 extern S3Interface S3;
 
 

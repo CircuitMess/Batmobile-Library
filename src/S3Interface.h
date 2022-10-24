@@ -3,26 +3,11 @@
 
 #include <Arduino.h>
 #include <SPI.h>
-#include <DriveMode.h>
+#include <DriveInfo.h>
 #include <memory>
 #include <FS.h>
 
 class S3Interface {
-private:
-	// TODO: use correct model
-	struct MotorInfo {};
-
-	struct CamFrame {
-		void* data;
-		size_t size;
-	};
-
-	struct DriveInfo {
-		DriveMode mode;
-		MotorInfo motors;
-		CamFrame frame;
-	};
-
 public:
 	void begin();
 
@@ -31,7 +16,7 @@ public:
 
 private:
 
-	DriveMode state = Idle;
+	DriveMode state = DriveMode::Idle;
 
 };
 

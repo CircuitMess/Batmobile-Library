@@ -12,9 +12,12 @@ class Communication : public CommunicationCommon {
 public:
 	Communication();
 	~Communication();
+
 	using CommunicationCommon::setClient;
+
 	void sendBattery(uint8_t percent);
 	void sendShutdown(std::function<void()> ackCallback);
+
 	void addListener(ComType type, ComListener* listener);
     void addListener(std::initializer_list<ComType> type,ComListener* listener);
 	void removeListener(ComType type, ComListener* listener);
@@ -22,6 +25,7 @@ public:
 
 private:
 	bool isWiFiConnected() override;
+
 	void processPacket(const ControlPacket& packet) override;
 
 	std::map<ComType, std::unordered_set<ComListener*>> listeners;

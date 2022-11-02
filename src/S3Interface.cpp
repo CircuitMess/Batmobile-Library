@@ -8,11 +8,11 @@ void S3Interface::setMode(DriveMode mode){
 	state = mode;
 }
 
-std::unique_ptr<S3Interface::DriveInfo> S3Interface::getFrame(){
+std::unique_ptr<DriveInfo> S3Interface::getFrame(){
 	auto info = std::make_unique<DriveInfo>();
 	info->mode = state;
 
-	if(state == Idle) return info;
+	if(state == DriveMode::Idle) return info;
 
 	extern const uint8_t Frame[];
 	extern const size_t FrameSize;

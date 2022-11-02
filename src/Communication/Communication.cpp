@@ -44,27 +44,27 @@ void Communication::processPacket(const ControlPacket& packet){
 	switch(packet.type){
 		case ComType::BallHue:
 			for(auto& listener: listeners[ComType::BallHue]){
-				listener->onBallHue();
+				listener->onBallHue(packet.data);
 			}
 			break;
 		case ComType::Boost:
 			for(auto& listener: listeners[ComType::Boost]){
-				listener->onBoost();
+				listener->onBoost(packet.data);
 			}
 			break;
 		case ComType::DriveDir:
 			for(auto& listener: listeners[ComType::DriveDir]){
-				listener->onDriveDir();
+				listener->onDriveDir((DriveDirection)packet.data);
 			}
 			break;
 		case ComType::DriveMode:
 			for(auto& listener: listeners[ComType::DriveMode]){
-				listener->onDriveMode();
+				listener->onDriveMode((DriveMode)packet.data);
 			}
 			break;
 		case ComType::DriveSpeed:
 			for(auto& listener: listeners[ComType::DriveSpeed]){
-				listener->onDriveSpeed();
+				listener->onDriveSpeed(packet.data);
 			}
 			break;
 		case ComType::Honk:
@@ -74,7 +74,7 @@ void Communication::processPacket(const ControlPacket& packet){
 			break;
 		case ComType::Volume:
 			for(auto& listener: listeners[ComType::Volume]){
-				listener->onVolume();
+				listener->onVolume(packet.data);
 			}
 			break;
 	}

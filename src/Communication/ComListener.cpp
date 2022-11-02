@@ -1,22 +1,22 @@
 #include "ComListener.h"
 
-void ComListener::onBallHue(){
+void ComListener::onBallHue(uint8_t hue){
 
 }
 
-void ComListener::onBoost(){
+void ComListener::onBoost(bool boost){
 
 }
 
-void ComListener::onDriveDir(){
+void ComListener::onDriveDir(DriveDirection direction){
 
 }
 
-void ComListener::onDriveMode(){
+void ComListener::onDriveMode(DriveMode mode){
 
 }
 
-void ComListener::onDriveSpeed(){
+void ComListener::onDriveSpeed(uint8_t speed){
 
 }
 
@@ -24,6 +24,6 @@ void ComListener::onHonk(){
 
 }
 
-void ComListener::onVolume(){
+void ComListener::onVolume(uint8_t volume){
 
 }

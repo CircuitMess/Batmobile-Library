@@ -23,7 +23,8 @@ public:
 private:
 	bool isWiFiConnected() override;
 	void processPacket(const ControlPacket& packet) override;
-	std::map<ComType, std::set<ComListener*>> listeners;
+
+	std::map<ComType, std::unordered_set<ComListener*>> listeners;
 };
 
 extern Communication Com;

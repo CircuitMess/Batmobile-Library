@@ -54,7 +54,7 @@ void Communication::processPacket(const ControlPacket& packet){
 			break;
 		case ComType::DriveDir:
 			for(auto& listener: listeners[ComType::DriveDir]){
-				listener->onDriveDir((DriveDirection)packet.data);
+				listener->onDriveDir(packet.data);
 			}
 			break;
 		case ComType::DriveMode:

@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <DriveMode.h>
-#include <DriveDirection.h>
 
 class ComListener {
 public:
@@ -12,7 +11,11 @@ public:
 	 */
 	virtual void onBallHue(uint8_t hue);
 	virtual void onBoost(bool boost);
-	virtual void onDriveDir(DriveDirection dir);
+	/**
+	 * @param dir Bitwise OR-ed values of direction buttons,
+	 * lowest to highest bit represents forward, backward, left, right, respectively
+	 */
+	virtual void onDriveDir(uint8_t dir);
 	virtual void onDriveMode(DriveMode mode);
 	/**
 	 * @param speed [0-100]

@@ -8,7 +8,7 @@ void ComListener::onBoost(bool boost){
 
 }
 
-void ComListener::onDriveDir(DriveDirection direction){
+void ComListener::onDriveDir(uint8_t direction){
 
 }
 

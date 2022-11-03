@@ -13,8 +13,6 @@ public:
 	Communication();
 	~Communication();
 
-	using CommunicationCommon::setClient;
-
 	void sendBattery(uint8_t percent);
 	void sendShutdown(std::function<void()> ackCallback);
 

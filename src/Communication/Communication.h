@@ -11,7 +11,7 @@
 class Communication : public CommunicationCommon {
 public:
 	Communication();
-	~Communication();
+	~Communication() override;
 
 	void sendBattery(uint8_t percent);
 	void sendShutdown(std::function<void()> ackCallback);

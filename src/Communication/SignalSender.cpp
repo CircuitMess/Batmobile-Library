@@ -25,13 +25,9 @@ uint8_t SignalSender::getStrength(){
 	wifi_ap_record_t info;
 	uint8_t percentage = 0;
 
-	if(!esp_wifi_sta_get_ap_info(&info)) {
-		for (int x = 0; x < 100; x = x + 1){
-			if(signalDecibel[x] == info.rssi){
-				percentage = signalPercent[x];
-				break;
-			}
-		}
+	if(esp_wifi_sta_get_ap_info(&info) == ESP_OK){
+		auto con = constrain(info.rssi, minSS, maxSS);
+		percentage = map(con, minSS, maxSS, 0, 100);
 	}
 	return percentage;
 }

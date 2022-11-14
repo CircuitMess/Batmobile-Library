@@ -2,7 +2,6 @@
 #include <esp_wifi.h>
 #include "SignalSender.h"
 #include "Communication.h"
-#include "DecibelPercentConverter.h"
 
 SignalSender::SignalSender(){}
 

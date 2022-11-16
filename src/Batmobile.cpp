@@ -1,4 +1,5 @@
 #include "Batmobile.h"
+#include "Communication/Communication.h"
 #include <SPIFFS.h>
 #include <Loop/LoopManager.h>
 
@@ -30,5 +31,6 @@ void BatmobileImpl::begin(){
 	}
 
 	S3.begin();
+	Com.begin();
 }
 

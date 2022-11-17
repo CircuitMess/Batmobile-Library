@@ -5,6 +5,9 @@
 BatmobileImpl Batmobile;
 MotorControl Motors;
 S3Interface S3;
+SingleLEDController Headlights(LED_FRONT, 0);
+SingleLEDController Taillights(LED_BACK, 1);
+RGBLEDController Underlights({ LED_R, LED_G, LED_B }, { 2, 3, 4 });
 
 BatmobileImpl::BatmobileImpl(){
 
@@ -28,6 +31,10 @@ void BatmobileImpl::begin(){
 	if(!SPIFFS.begin()){
 		Serial.println("SPIFFS error");
 	}
+
+	Headlights.begin();
+	Taillights.begin();
+	Underlights.begin();
 
 	S3.begin();
 }

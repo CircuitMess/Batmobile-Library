@@ -44,7 +44,7 @@ void BatteryService::loop(uint micros){
 	measureVoltage = 0;
 	measureCount = 0;
 
-	Com.sendBattery(getPercentage());
+	Com.sendBattery(getPercentage(), charging());
 
 	if(getVoltage() < MIN_VOLT && !charging()){
 		//TODO:add shutdown

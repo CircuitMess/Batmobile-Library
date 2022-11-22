@@ -117,6 +117,7 @@ SingleLEDController::SingleLEDController(uint8_t pin, uint8_t channel) : pin(pin
 
 void SingleLEDController::init(){
 	ledcSetup(channel, PWMFreq, PWMResolution);
+	ledcWrite(channel, 0);
 	ledcAttachPin(pin, channel);
 }
 
@@ -129,6 +130,7 @@ RGBLEDController::RGBLEDController(std::initializer_list<uint8_t> pins, std::ini
 void RGBLEDController::init(){
 	for(uint8_t i = 0; i < 3; i++){
 		ledcSetup(channels[i], PWMFreq, PWMResolution);
+		ledcWrite(channels[i], 0);
 		ledcAttachPin(pins[i], channels[i]);
 	}
 }

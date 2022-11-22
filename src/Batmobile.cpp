@@ -1,6 +1,4 @@
 #include "Batmobile.h"
-#include "Communication/Communication.h"
-#include <SPIFFS.h>
 #include <Loop/LoopManager.h>
 
 BatmobileImpl Batmobile;

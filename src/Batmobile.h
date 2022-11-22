@@ -13,6 +13,7 @@
 #include "Motors.h"
 #include "AudioSystem.h"
 #include "LEDController.h"
+#include "Communication/Communication.h"
 
 class BatmobileImpl {
 public:

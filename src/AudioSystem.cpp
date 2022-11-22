@@ -27,10 +27,10 @@ void AudioSystem::stop(){
 }
 
 void AudioSystem::play(File file){
-	FileDataSource* dataSource = new FileDataSource(file);
-	SourceAAC* source = new SourceAAC(*dataSource);
+	FileDataSource* newDataSource = new FileDataSource(file);
+	SourceAAC* newAudioSource = new SourceAAC(*newDataSource);
 
-	PlayJob job = { dataSource, source };
+	PlayJob job = { newDataSource, newAudioSource };
 	playQueue.send(&job);
 
 	running = true;

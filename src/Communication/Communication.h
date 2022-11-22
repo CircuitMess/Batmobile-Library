@@ -16,7 +16,7 @@ public:
 
 	void begin();
 
-	void sendBattery(uint8_t percent);
+	void sendBattery(uint8_t percent, bool charging);
 	void sendSignalStrength(uint8_t percent);
 	void sendShutdown(std::function<void()> ackCallback);
 

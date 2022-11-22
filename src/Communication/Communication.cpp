@@ -16,8 +16,9 @@ bool Communication::isWiFiConnected(){
 	return WiFi.status() == WL_CONNECTED;
 }
 
-void Communication::sendBattery(uint8_t percent){
+void Communication::sendBattery(uint8_t percent, bool charging){
 	if(percent > 100) return;
+	if(charging) percent = UINT8_MAX;
 	ControlPacket packet{ComType::Battery, percent};
 	sendPacket(packet);
 }

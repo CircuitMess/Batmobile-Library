@@ -4,13 +4,15 @@
 #include <Arduino.h>
 #include <CircuitOS.h>
 #include <BatCommon.h>
+#include <CMAudio.h>
 #include <Display/Display.h>
 #include <WiFi.h>
 #include <SPIFFS.h>
 #include <Loop/LoopManager.h>
 #include "S3Interface.h"
 #include "Motors.h"
-#include "LED/LEDController.h"
+#include "AudioSystem.h"
+#include "LEDController.h"
 
 class BatmobileImpl {
 public:
@@ -29,6 +31,7 @@ extern RGBLEDController Underlights;
 extern BatmobileImpl Batmobile;
 extern MotorControl Motors;
 extern S3Interface S3;
+extern AudioSystem Audio;
 
 
 #endif //BATMOBILE_LIBRARY_BATMOBILE_H

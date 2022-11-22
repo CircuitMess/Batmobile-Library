@@ -14,12 +14,17 @@
 #define LED_G 21
 #define LED_B 22
 
-#define LED_FRONT 12
-#define LED_BACK 32
+#define LED_R 15
+#define LED_G 13
+#define LED_B 12
 
-#define PIN_SPKR 25
+#define LED_FRONT 14
+#define LED_BACK 27
+
+#define PIN_SPKR 26
+#define PIN_SPKR_EN 0
 
 #define PIN_BATT 39
-#define PIN_CHARGE -1
+#define PIN_CHARGE 36
 
 #endif //BATMOBILE_LIBRARY_PINS_H

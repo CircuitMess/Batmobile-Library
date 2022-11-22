@@ -5,6 +5,7 @@
 #include <AsyncTCP.h>
 #include <ComType.h>
 #include "ComListener.h"
+#include "SignalSender.h"
 #include <map>
 #include <set>
 
@@ -13,7 +14,10 @@ public:
 	Communication();
 	~Communication() override;
 
+	void begin();
+
 	void sendBattery(uint8_t percent);
+	void sendSignalStrength(uint8_t percent);
 	void sendShutdown(std::function<void()> ackCallback);
 
 	void addListener(ComType type, ComListener* listener);
@@ -23,10 +27,10 @@ public:
 
 private:
 	bool isWiFiConnected() override;
-
 	void processPacket(const ControlPacket& packet) override;
 
 	std::map<ComType, std::unordered_set<ComListener*>> listeners;
+	SignalSender signalSender;
 };
 
 extern Communication Com;

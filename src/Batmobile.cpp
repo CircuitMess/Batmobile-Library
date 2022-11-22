@@ -1,10 +1,12 @@
 #include "Batmobile.h"
+#include "Communication/Communication.h"
 #include <SPIFFS.h>
 #include <Loop/LoopManager.h>
 
 BatmobileImpl Batmobile;
 MotorControl Motors;
 S3Interface S3;
+AudioSystem Audio;
 SingleLEDController Headlights(LED_FRONT, 0);
 SingleLEDController Taillights(LED_BACK, 1);
 RGBLEDController Underlights({ LED_R, LED_G, LED_B }, { 2, 3, 4 });
@@ -37,5 +39,6 @@ void BatmobileImpl::begin(){
 	Underlights.begin();
 
 	S3.begin();
+	Com.begin();
 }
 

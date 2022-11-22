@@ -8,12 +8,23 @@ Communication::Communication(){}
 
 Communication::~Communication(){}
 
+void Communication::begin(){
+	signalSender.begin();
+}
+
 bool Communication::isWiFiConnected(){
 	return WiFi.status() == WL_CONNECTED;
 }
 
 void Communication::sendBattery(uint8_t percent){
+	if(percent > 100) return;
+	ControlPacket packet{ComType::Battery, percent};
+	sendPacket(packet);
+}
 
+void Communication::sendSignalStrength(uint8_t percent){
+	ControlPacket packet{ComType::SignalStrength, percent};
+	sendPacket(packet);
 }
 
 void Communication::sendShutdown(std::function<void()> ackCallback){

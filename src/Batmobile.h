@@ -12,6 +12,7 @@
 #include "S3Interface.h"
 #include "Motors.h"
 #include "AudioSystem.h"
+#include "LEDController.h"
 
 class BatmobileImpl {
 public:
@@ -22,6 +23,10 @@ private:
 
 
 };
+
+extern SingleLEDController Headlights;
+extern SingleLEDController Taillights;
+extern RGBLEDController Underlights;
 
 extern BatmobileImpl Batmobile;
 extern MotorControl Motors;

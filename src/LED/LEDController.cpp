@@ -8,6 +8,7 @@ static constexpr uint8_t PWMResolution = 8;
 template<typename T>
 void LEDController<T>::begin(){
 	init();
+	clear();
 	LoopManager::addListener(this);
 
 }

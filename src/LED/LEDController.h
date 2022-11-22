@@ -18,12 +18,11 @@ public:
 	void blinkTwice(T color);
 	void blinkContinuous(T color);
 
-	virtual void write(T val) = 0;
-
 	void loop(uint micros) final;
 
 protected:
 	virtual void init() = 0;
+	virtual void write(T val) = 0;
 
 private:
 	enum {
@@ -42,6 +41,8 @@ private:
 class SingleLEDController : public LEDController<uint8_t> {
 public:
 	SingleLEDController(uint8_t pin, uint8_t channel);
+
+protected:
 	void write(uint8_t val) override;
 
 private:
@@ -53,6 +54,8 @@ private:
 class RGBLEDController : public LEDController<glm::vec<3, uint8_t>> {
 public:
 	RGBLEDController(std::initializer_list<uint8_t> pins, std::initializer_list<uint8_t> channels);
+
+protected:
 	void write(glm::vec<3, uint8_t> val) override;
 
 private:

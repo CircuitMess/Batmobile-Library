@@ -61,6 +61,10 @@ void AudioSystem::player(){
 		if(wasRunning && !output.isRunning()){
 			running = false;
 		}
+
+		if(!output.isRunning()){
+			delay(10);
+		}
 	}
 }
 

@@ -17,7 +17,9 @@ bool Communication::isWiFiConnected(){
 }
 
 void Communication::sendBattery(uint8_t percent){
-
+	if(percent > 100) return;
+	ControlPacket packet{ComType::Battery, percent};
+	sendPacket(packet);
 }
 
 void Communication::sendSignalStrength(uint8_t percent){

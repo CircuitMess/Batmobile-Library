@@ -6,6 +6,7 @@
 BatmobileImpl Batmobile;
 MotorControl Motors;
 S3Interface S3;
+AudioSystem Audio;
 
 BatmobileImpl::BatmobileImpl(){
 

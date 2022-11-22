@@ -19,7 +19,7 @@ public:
 
 	void setVolume(uint8_t volume);
 
-	bool isPlaying();
+	bool isPlaying() const;
 
 private:
 	OutputDAC output;

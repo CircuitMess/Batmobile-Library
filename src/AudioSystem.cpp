@@ -68,6 +68,6 @@ void AudioSystem::setVolume(uint8_t volume){
 	output.setGain((float) volume / 255.0f);
 }
 
-bool AudioSystem::isPlaying(){
+bool AudioSystem::isPlaying() const{
 	return running;
 }

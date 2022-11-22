@@ -10,12 +10,10 @@ void LEDController<T>::begin(){
 	init();
 	clear();
 	LoopManager::addListener(this);
-
 }
 
 template<typename T>
 void LEDController<T>::setValue(T color){
-
 	LEDcolor = color;
 
 	if(LEDstate == Solid){
@@ -29,11 +27,9 @@ void LEDController<T>::clear(){
 	blinkState = false;
 	blinkColor = T();
 	blinkStartTime = 0;
-	glm::vec3 vec;
 	LEDcolor = T();
 
 	write(LEDcolor);
-
 }
 
 template<typename T>
@@ -44,7 +40,6 @@ void LEDController<T>::setSolid(T color){
 
 template<typename T>
 void LEDController<T>::blink(T color){
-
 	LEDstate = Once;
 	blinkColor = color;
 	blinkStartTime = millis();
@@ -105,15 +100,9 @@ void LEDController<T>::loop(uint micros){
 	}
 }
 
-template
-class LEDController<uint8_t>;
 
-template
-class LEDController<glm::vec<3, uint8_t>>;
-
-SingleLEDController::SingleLEDController(uint8_t pin, uint8_t channel) : pin(pin), channel(channel){
-
-}
+template class LEDController<uint8_t>;
+SingleLEDController::SingleLEDController(uint8_t pin, uint8_t channel) : pin(pin), channel(channel){ }
 
 void SingleLEDController::init(){
 	ledcSetup(channel, PWMFreq, PWMResolution);
@@ -125,7 +114,9 @@ void SingleLEDController::write(uint8_t val){
 	ledcWrite(channel, val);
 }
 
-RGBLEDController::RGBLEDController(std::initializer_list<uint8_t> pins, std::initializer_list<uint8_t> channels) : pins(pins), channels(channels){}
+
+template class LEDController<glm::vec<3, uint8_t>>;
+RGBLEDController::RGBLEDController(std::initializer_list<uint8_t> pins, std::initializer_list<uint8_t> channels) : pins(pins), channels(channels){ }
 
 void RGBLEDController::init(){
 	for(uint8_t i = 0; i < 3; i++){

@@ -38,6 +38,7 @@ private:
 	static constexpr uint32_t blinkContinuousDuration = 500; //[ms]
 };
 
+
 class SingleLEDController : public LEDController<uint8_t> {
 public:
 	SingleLEDController(uint8_t pin, uint8_t channel);
@@ -47,9 +48,11 @@ protected:
 
 private:
 	void init() override;
+
 	const uint8_t pin;
 	const uint8_t channel;
 };
+
 
 class RGBLEDController : public LEDController<glm::vec<3, uint8_t>> {
 public:
@@ -60,6 +63,7 @@ protected:
 
 private:
 	void init() override;
+
 	const std::vector<uint8_t> pins;
 	const std::vector<uint8_t> channels;
 };

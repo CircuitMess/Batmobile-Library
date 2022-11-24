@@ -18,6 +18,15 @@ public:
 	void blinkTwice(T color);
 	void blinkContinuous(T color);
 
+	/**
+	 * Breathes an LED from specified start value to end value.
+	 * Typename T needs to have defined subtraction (T start - T end) and multiplication by a scalar value (T start * float n)
+	 * @param start Starting value
+	 * @param end Ending value
+	 * @param period Duration of 1 period, going from start to end and back, in milliseconds.
+	 * @param loops Number of loops, -1 for infinite looping.
+	 */
+	void breathe(T start, T end, size_t period, int16_t loops = -1);
 	void loop(uint micros) final;
 
 protected:
@@ -26,7 +35,7 @@ protected:
 
 private:
 	enum {
-		Solid, Once, Twice, Continuous
+		Solid, Once, Twice, Continuous, Breathe
 	} LEDstate = Solid;
 
 	T LEDcolor{};
@@ -34,6 +43,14 @@ private:
 	T blinkColor{};
 	uint32_t blinkStartTime = 0;
 	bool blinkState = false;
+
+	T breatheStart{};
+	T breatheEnd{};
+	size_t breathePeriod;
+	size_t breatheMillis;
+	int16_t breatheLoops;
+	uint16_t breatheLoopCounter;
+
 	static constexpr uint32_t blinkDuration = 100; //[ms]
 	static constexpr uint32_t blinkContinuousDuration = 500; //[ms]
 };
@@ -53,13 +70,13 @@ private:
 	const uint8_t channel;
 };
 
-
-class RGBLEDController : public LEDController<glm::vec<3, uint8_t>> {
+//RGBLEDController template type is vector of floats to allow multiplication by a float value, this is a limitation set by glm
+class RGBLEDController : public LEDController<glm::vec3> {
 public:
 	RGBLEDController(std::initializer_list<uint8_t> pins, std::initializer_list<uint8_t> channels);
 
 protected:
-	void write(glm::vec<3, uint8_t> val) override;
+	void write(glm::vec3 val) override;
 
 private:
 	void init() override;

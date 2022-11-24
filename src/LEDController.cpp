@@ -61,6 +61,21 @@ void LEDController<T>::blinkContinuous(T color){
 }
 
 template<typename T>
+void LEDController<T>::breathe(T start, T end, size_t period, int16_t loops){
+	if(loops == 0) return;
+
+	breathePeriod = period;
+	breatheLoops = loops;
+	breatheStart = start;
+	breatheEnd = end;
+	breatheLoopCounter = 0;
+	breatheMillis = millis();
+
+	LEDstate = Breathe;
+	write(breatheStart);
+}
+
+template<typename T>
 void LEDController<T>::loop(uint micros){
 	if(LEDstate == Solid) return;
 	if(millis() - blinkStartTime < blinkDuration) return;
@@ -93,6 +108,28 @@ void LEDController<T>::loop(uint micros){
 		LEDstate = Solid;
 		pushVal = LEDcolor;
 		push = true;
+	}else if(LEDstate == Breathe){
+		if(millis() - breatheMillis >= breathePeriod){
+			breatheMillis = millis();
+			if(breatheLoops != -1){
+				breatheLoopCounter++;
+				if(breatheLoopCounter >= breatheLoops){
+					clear();
+					setValue(breatheStart);
+					return;
+				}
+			}
+		}
+		push = true;
+
+		float t = 0.5 * cos(2 * PI * (millis() - breatheMillis) / breathePeriod) + 0.5;
+
+		T startPart = breatheStart;
+		startPart *= t;
+		T endPart = breatheEnd;
+		endPart *= (1.0f - t);
+		pushVal = startPart + endPart;
+
 	}
 
 	if(push){
@@ -112,10 +149,11 @@ void SingleLEDController::init(){
 
 void SingleLEDController::write(uint8_t val){
 	ledcWrite(channel, val);
+//	Serial.printf("single: %d\n", val);
 }
 
 
-template class LEDController<glm::vec<3, uint8_t>>;
+template class LEDController<glm::vec3>;
 RGBLEDController::RGBLEDController(std::initializer_list<uint8_t> pins, std::initializer_list<uint8_t> channels) : pins(pins), channels(channels){ }
 
 void RGBLEDController::init(){
@@ -126,8 +164,9 @@ void RGBLEDController::init(){
 	}
 }
 
-void RGBLEDController::write(glm::vec<3, uint8_t> val){
+void RGBLEDController::write(glm::vec3 val){
 	for(uint8_t i = 0; i < 3; i++){
 		ledcWrite(channels[i], val[i]);
 	}
+	Serial.printf("rgb: (%.f, %.f, %.f)\n", val[0], val[1], val[2]);
 }

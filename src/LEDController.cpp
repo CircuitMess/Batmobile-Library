@@ -28,6 +28,7 @@ void LEDController<T>::clear(){
 	blinkColor = T();
 	blinkStartTime = 0;
 	LEDcolor = T();
+	breatheQueued = false;
 
 	write(LEDcolor);
 }
@@ -72,6 +73,12 @@ void LEDController<T>::breathe(T start, T end, size_t period, int16_t loops){
 	breatheLoopCounter = 0;
 	breatheMillis = millis();
 
+	if(LEDstate == Once || LEDstate == Twice){
+		//can't interrupt blinking with breathe command
+		breatheQueued = true;
+		return;
+	}
+
 	LEDstate = Breathe;
 	write(breatheStart);
 }
@@ -106,7 +113,13 @@ void LEDController<T>::loop(uint micros){
 		blinkState = false;
 		blinkStartTime = 0;
 		blinkColor = T();
-		LEDstate = Solid;
+
+		if(breatheQueued){
+			LEDstate = Breathe;
+		}else{
+			LEDstate = Solid;
+		}
+
 		pushVal = LEDcolor;
 		push = true;
 	}else if(LEDstate == Breathe){

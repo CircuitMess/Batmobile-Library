@@ -50,6 +50,7 @@ private:
 	bool blinkState = false;
 	uint32_t blinkContinuousDuration = 0; //[ms]
 
+	bool breatheQueued = false; // used to prevent breathe command from interrupting blink/doubleBlink
 	T breatheStart{};
 	T breatheEnd{};
 	size_t breathePeriod;

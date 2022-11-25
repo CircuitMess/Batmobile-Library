@@ -55,8 +55,9 @@ void LEDController<T>::blinkTwice(T color){
 }
 
 template<typename T>
-void LEDController<T>::blinkContinuous(T color){
+void LEDController<T>::blinkContinuous(T color, uint32_t duration){
 	blink(color);
+	blinkContinuousDuration = duration;
 	LEDstate = Continuous;
 }
 
@@ -149,7 +150,6 @@ void SingleLEDController::init(){
 
 void SingleLEDController::write(uint8_t val){
 	ledcWrite(channel, val);
-//	Serial.printf("single: %d\n", val);
 }
 
 
@@ -168,5 +168,4 @@ void RGBLEDController::write(glm::vec3 val){
 	for(uint8_t i = 0; i < 3; i++){
 		ledcWrite(channels[i], val[i]);
 	}
-	Serial.printf("rgb: (%.f, %.f, %.f)\n", val[0], val[1], val[2]);
 }

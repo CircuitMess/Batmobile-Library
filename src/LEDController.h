@@ -16,7 +16,12 @@ public:
 	void setSolid(T color);
 	void blink(T color);
 	void blinkTwice(T color);
-	void blinkContinuous(T color);
+	/**
+	 * Starts a continuous blinking in the selected color.
+	 * @param color Selected color
+	 * @param duration Duration of LED on/off cycle. LED will stay the same color for 'duration' ms, then turn off for 'duration' ms.
+	 */
+	void blinkContinuous(T color, uint32_t duration = 500);
 
 	/**
 	 * Breathes an LED from specified start value to end value.
@@ -43,6 +48,7 @@ private:
 	T blinkColor{};
 	uint32_t blinkStartTime = 0;
 	bool blinkState = false;
+	uint32_t blinkContinuousDuration = 0; //[ms]
 
 	T breatheStart{};
 	T breatheEnd{};
@@ -52,7 +58,6 @@ private:
 	uint16_t breatheLoopCounter;
 
 	static constexpr uint32_t blinkDuration = 100; //[ms]
-	static constexpr uint32_t blinkContinuousDuration = 500; //[ms]
 };
 
 

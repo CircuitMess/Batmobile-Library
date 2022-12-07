@@ -1,7 +1,7 @@
 #include "Motors.h"
 #include "Pins.hpp"
 
-const uint8_t MotorControl::PWM[4] = { 0, 1, 2, 3 };
+const uint8_t MotorControl::PWM[4] = { 5, 6, 7, 8 };
 
 const std::pair<int8_t, int8_t> MotorControl::Pins[4] = {
 		{ MOTOR_FR_A, MOTOR_FR_B },
@@ -19,6 +19,7 @@ void MotorControl::begin(){
 	for(int i = 0; i < 4; i++){
 		ledcSetup(PWM[i], 1000, 8);
 		ledcWrite(PWM[i], 0);
+		ledcAttachPin(Pins[i].first, PWM[i]);
 	}
 
 	stopAll();
@@ -65,8 +66,8 @@ void MotorControl::setMotor(Motor motor, int8_t value){
 	const auto& pins = Pins[i];
 
 	if(value == 0){
-		ledcDetachPin(PWM[i]);
 		ledcWrite(PWM[i], 0);
+		// ledcDetachPin(PWM[i]);
 		digitalWrite(pins.first, LOW);
 		digitalWrite(pins.second, LOW);
 		return;
@@ -89,6 +90,6 @@ void MotorControl::setMotor(Motor motor, int8_t value){
 		digitalWrite(pins.second, LOW);
 	}
 
+	// ledcAttachPin(pins.first, PWM[i]);
 	ledcWrite(PWM[i], duty);
-	ledcAttachPin(pins.first, PWM[i]);
 }

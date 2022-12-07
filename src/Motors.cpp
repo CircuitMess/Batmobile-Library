@@ -41,14 +41,14 @@ void MotorControl::setBL(int8_t value){
 	setMotor(BackLeft, value);
 }
 
-void MotorControl::setAll(MotorsState state){
+void MotorControl::setAll(MotorInfo state){
 	setFR(state.frontRight);
 	setFL(state.frontLeft);
 	setBR(state.backRight);
 	setBL(state.backLeft);
 }
 
-MotorsState MotorControl::getAll(){
+MotorInfo MotorControl::getAll(){
 	return state.val;
 }
 

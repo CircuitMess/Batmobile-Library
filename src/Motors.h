@@ -3,10 +3,7 @@
 
 #include <Arduino.h>
 #include "Pins.hpp"
-
-struct MotorsState {
-	int8_t frontRight, frontLeft, backRight, backLeft;
-};
+#include <DriveInfo.h>
 
 class MotorControl {
 public:
@@ -17,8 +14,8 @@ public:
 	void setBR(int8_t value);
 	void setBL(int8_t value);
 
-	void setAll(MotorsState state);
-	MotorsState getAll();
+	void setAll(MotorInfo state);
+	MotorInfo getAll();
 
 	void stopAll();
 
@@ -29,7 +26,7 @@ private:
 	static const std::pair<int8_t, int8_t> Pins[4];
 
 	union {
-		MotorsState val;
+		MotorInfo val;
 		uint8_t raw[4];
 	} state = { .val = { 0, 0, 0, 0 } };
 

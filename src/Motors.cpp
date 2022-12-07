@@ -1,5 +1,5 @@
-#include <Loop/LoopManager.h>
 #include "Motors.h"
+#include <Loop/LoopManager.h>
 #include "Pins.hpp"
 
 const uint8_t MotorControl::PWM[4] = { 5, 6, 7, 8 };
@@ -47,14 +47,14 @@ void MotorControl::setBL(int8_t value){
 	setMotorTarget(BackLeft, value);
 }
 
-void MotorControl::setAll(MotorsState state){
+void MotorControl::setAll(MotorInfo state){
 	setFR(state.frontRight);
 	setFL(state.frontLeft);
 	setBR(state.backRight);
 	setBL(state.backLeft);
 }
 
-MotorsState MotorControl::getAll(){
+MotorInfo MotorControl::getAll(){
 	return stateTarget.val;
 }
 

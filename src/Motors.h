@@ -4,10 +4,7 @@
 #include <Arduino.h>
 #include <Loop/LoopListener.h>
 #include "Pins.hpp"
-
-struct MotorsState {
-	int8_t frontRight, frontLeft, backRight, backLeft;
-};
+#include <DriveInfo.h>
 
 class MotorControl : private LoopListener {
 public:
@@ -18,8 +15,8 @@ public:
 	void setBR(int8_t value);
 	void setBL(int8_t value);
 
-	void setAll(MotorsState state);
-	MotorsState getAll();
+	void setAll(MotorInfo state);
+	MotorInfo getAll();
 
 	void stopAll();
 
@@ -30,7 +27,7 @@ private:
 	static const std::pair<int8_t, int8_t> Pins[4];
 
 	union {
-		MotorsState val;
+		MotorInfo val;
 		int8_t raw[4];
 	} stateTarget = { .val = { 0, 0, 0, 0 } };
 

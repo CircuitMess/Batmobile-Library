@@ -3,6 +3,7 @@
 
 BatmobileImpl Batmobile;
 MotorControl Motors;
+BatteryService Battery;
 S3Interface S3;
 AudioSystem Audio;
 SingleLEDController Headlights(LED_FRONT, 0);
@@ -31,6 +32,7 @@ void BatmobileImpl::begin(){
 	Underlights.begin();
 
 	Audio.begin();
+	Battery.begin();
 
 	if(!S3.begin()){
 		printf("S3 begin failed\n");

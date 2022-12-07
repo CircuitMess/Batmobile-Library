@@ -1,5 +1,5 @@
-#ifndef BATMOBILE_LIBRARY_BATTERYSERVICE_H
-#define BATMOBILE_LIBRARY_BATTERYSERVICE_H
+#ifndef BATMOBILE_LIBRARY_BATTERY_H
+#define BATMOBILE_LIBRARY_BATTERY_H
 
 #include <Arduino.h>
 #include <Loop/LoopListener.h>
@@ -37,5 +37,4 @@ private:
 
 };
 
-extern BatteryService Battery;
-#endif //BATMOBILE_LIBRARY_BATTERYSERVICE_H
+#endif //BATMOBILE_LIBRARY_BATTERY_H

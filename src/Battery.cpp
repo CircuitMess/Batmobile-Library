@@ -1,10 +1,8 @@
-#include "BatteryService.h"
+#include "Battery.h"
 #include <Loop/LoopManager.h>
 #include <soc/efuse_reg.h>
-#include "../Pins.hpp"
-#include "Communication.h"
-
-BatteryService Battery;
+#include "Pins.hpp"
+#include "Communication/Communication.h"
 
 uint16_t BatteryService::mapReading(uint16_t reading){
 	int mapped = map(reading, 2720, 3310, MIN_VOLT, MAX_VOLT);

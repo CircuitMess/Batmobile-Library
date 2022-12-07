@@ -54,7 +54,7 @@ void MotorControl::setAll(MotorInfo state){
 	setBL(state.backLeft);
 }
 
-MotorInfo MotorControl::getAll(){
+MotorInfo MotorControl::getAll() const{
 	return stateTarget.val;
 }
 

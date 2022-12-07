@@ -16,7 +16,7 @@ public:
 	void setBL(int8_t value);
 
 	void setAll(MotorInfo state);
-	MotorInfo getAll();
+	MotorInfo getAll() const;
 
 	void stopAll();
 

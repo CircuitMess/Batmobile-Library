@@ -2,13 +2,14 @@
 #define BATMOBILE_LIBRARY_MOTORS_H
 
 #include <Arduino.h>
+#include <Loop/LoopListener.h>
 #include "Pins.hpp"
 
 struct MotorsState {
 	int8_t frontRight, frontLeft, backRight, backLeft;
 };
 
-class MotorControl {
+class MotorControl : private LoopListener {
 public:
 	void begin();
 
@@ -30,10 +31,19 @@ private:
 
 	union {
 		MotorsState val;
-		uint8_t raw[4];
-	} state = { .val = { 0, 0, 0, 0 } };
+		int8_t raw[4];
+	} stateTarget = { .val = { 0, 0, 0, 0 } };
 
-	void setMotor(Motor motor, int8_t value);
+	double stateActual[4] = { 0, 0, 0, 0 };
+
+	void setMotorTarget(Motor motor, int8_t value);
+	void sendMotorPWM(Motor motor, int8_t value);
+
+	void loop(uint micros) override;
+
+	static constexpr double EaseValue = 200; // value change per second
+	static constexpr uint32_t EaseInterval = 10000; // adjust PWM value every EaseInterval microseconds
+	uint32_t easeCounter = 0;
 
 };
 

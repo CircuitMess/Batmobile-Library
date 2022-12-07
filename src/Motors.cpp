@@ -1,3 +1,4 @@
+#include <Loop/LoopManager.h>
 #include "Motors.h"
 #include "Pins.hpp"
 
@@ -23,22 +24,27 @@ void MotorControl::begin(){
 	}
 
 	stopAll();
+	for(int i = 0; i < 4; i++){
+		sendMotorPWM((Motor) i, 0);
+	}
+
+	LoopManager::addListener(this);
 }
 
 void MotorControl::setFR(int8_t value){
-	setMotor(FrontRight, value);
+	setMotorTarget(FrontRight, value);
 }
 
 void MotorControl::setFL(int8_t value){
-	setMotor(FrontLeft, value);
+	setMotorTarget(FrontLeft, value);
 }
 
 void MotorControl::setBR(int8_t value){
-	setMotor(BackRight, value);
+	setMotorTarget(BackRight, value);
 }
 
 void MotorControl::setBL(int8_t value){
-	setMotor(BackLeft, value);
+	setMotorTarget(BackLeft, value);
 }
 
 void MotorControl::setAll(MotorsState state){
@@ -49,19 +55,24 @@ void MotorControl::setAll(MotorsState state){
 }
 
 MotorsState MotorControl::getAll(){
-	return state.val;
+	return stateTarget.val;
 }
 
 void MotorControl::stopAll(){
 	setAll({ 0, 0, 0, 0 });
 }
 
-void MotorControl::setMotor(Motor motor, int8_t value){
+void MotorControl::setMotorTarget(Motor motor, int8_t value){
 	size_t i = motor;
 	if(i >= 4) return;
 
-	value = std::min(std::max(value, (int8_t) -100), (int8_t) 100);
-	state.raw[i] = value;
+	value = constrain(value, -100, 100);
+	stateTarget.raw[i] = value;
+}
+
+void MotorControl::sendMotorPWM(Motor motor, int8_t value){
+	size_t i = motor;
+	if(i >= 4) return;
 
 	const auto& pins = Pins[i];
 
@@ -92,4 +103,32 @@ void MotorControl::setMotor(Motor motor, int8_t value){
 
 	// ledcAttachPin(pins.first, PWM[i]);
 	ledcWrite(PWM[i], duty);
+}
+
+void MotorControl::loop(uint micros){
+	easeCounter += micros;
+	if(easeCounter < EaseInterval) return;
+	easeCounter = 0;
+
+	const double dt = (double) EaseInterval / 1000000.0;
+
+	for(int i = 0; i < 4; i++){
+		if(stateTarget.raw[i] == stateActual[i]) continue;
+		double direction = (stateTarget.raw[i] > stateActual[i]) ? 1 : -1;
+
+		double oldValue = stateActual[i];
+		double newValue = constrain(oldValue + direction * EaseValue * dt, -100.0, 100.0);
+
+		if(direction > 0){
+			newValue = std::min(newValue, (double) stateTarget.raw[i]);
+		}else{
+			newValue = std::max(newValue, (double) stateTarget.raw[i]);
+		}
+
+		stateActual[i] = newValue;
+
+		if(std::round(newValue) != std::round(oldValue)){
+			sendMotorPWM((Motor) i, (int8_t) std::round(newValue));
+		}
+	}
 }

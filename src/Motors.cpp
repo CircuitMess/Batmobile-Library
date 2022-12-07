@@ -13,12 +13,12 @@ const std::pair<int8_t, int8_t> MotorControl::Pins[4] = {
 void MotorControl::begin(){
 	for(auto pin : { MOTOR_FL_A, MOTOR_FR_A, MOTOR_BL_A, MOTOR_BR_A, MOTOR_FL_B, MOTOR_FR_B, MOTOR_BL_B, MOTOR_BR_B }){
 		pinMode(pin, OUTPUT);
-		digitalWrite(pin, LOW);
+		digitalWrite(pin, HIGH);
 	}
 
 	for(int i = 0; i < 4; i++){
 		ledcSetup(PWM[i], 1000, 8);
-		ledcWrite(PWM[i], 0);
+		ledcWrite(PWM[i], 255);
 		ledcAttachPin(Pins[i].first, PWM[i]);
 	}
 
@@ -66,10 +66,10 @@ void MotorControl::setMotor(Motor motor, int8_t value){
 	const auto& pins = Pins[i];
 
 	if(value == 0){
-		ledcWrite(PWM[i], 0);
+		ledcWrite(PWM[i], 255);
 		// ledcDetachPin(PWM[i]);
-		digitalWrite(pins.first, LOW);
-		digitalWrite(pins.second, LOW);
+		digitalWrite(pins.first, HIGH);
+		digitalWrite(pins.second, HIGH);
 		return;
 	}
 

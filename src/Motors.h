@@ -23,7 +23,7 @@ public:
 	void stopAll();
 
 private:
-	enum Motor { FrontRight, FrontLeft, BackRight, BackLeft };
+	enum Motor : uint8_t { FrontRight, FrontLeft, BackRight, BackLeft };
 
 	static const uint8_t PWM[4];
 	static const std::pair<int8_t, int8_t> Pins[4];

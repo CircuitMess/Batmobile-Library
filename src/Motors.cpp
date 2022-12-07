@@ -74,12 +74,12 @@ void MotorControl::setMotor(Motor motor, int8_t value){
 	}
 
 	// motor driver is a basic H bridge and has two input lines (A and B) for each motor
-	// Ab - forward, aB - backward, AB & ab - brake
+	// Ab - forward, aB - backward, AB - brake, ab - no power
 	// going forward: pull B low, drive A with PWM
 	// going backward: put B high, drive A with reverse PWM value
 
 	// value is [-100, 100], duty is [0, 255]
-	const bool reverse = value < 0;
+	const bool reverse = (value < 0) ^ (motor == BackLeft || motor == BackRight); // Back motors are reverse
 	value = abs(value);
 	auto duty = (uint8_t) std::round(((double) value * 255.0) / 100.0);
 

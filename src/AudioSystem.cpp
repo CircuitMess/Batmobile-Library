@@ -27,10 +27,9 @@ void AudioSystem::stop(){
 }
 
 void AudioSystem::play(File file){
-	FileDataSource* newDataSource = new FileDataSource(file);
-	SourceAAC* newAudioSource = new SourceAAC(*newDataSource);
+	auto dataSource = new FileDataSource(file);
 
-	PlayJob job = { newDataSource, newAudioSource };
+	PlayJob job = { dataSource };
 	playQueue.send(&job);
 
 	running = true;
@@ -50,7 +49,7 @@ void AudioSystem::player(){
 			delete dataSource;
 
 			dataSource = next.dataSource;
-			source = next.source;
+			source = new SourceAAC(*dataSource);
 
 			output.setSource(source);
 			output.start();

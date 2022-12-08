@@ -14,6 +14,7 @@
 #include "AudioSystem.h"
 #include "LEDController.h"
 #include "Communication/Communication.h"
+#include "Battery.h"
 
 class BatmobileImpl {
 public:
@@ -31,6 +32,7 @@ extern RGBLEDController Underlights;
 
 extern BatmobileImpl Batmobile;
 extern MotorControl Motors;
+extern BatteryService Battery;
 extern S3Interface S3;
 extern AudioSystem Audio;
 

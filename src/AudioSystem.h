@@ -31,7 +31,6 @@ private:
 
 	struct PlayJob {
 		FileDataSource* dataSource;
-		SourceAAC* source;
 	};
 	Queue playQueue;
 

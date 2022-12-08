@@ -3,6 +3,7 @@
 
 BatmobileImpl Batmobile;
 MotorControl Motors;
+BatteryService Battery;
 S3Interface S3;
 AudioSystem Audio;
 SingleLEDController Headlights(LED_FRONT, 0);
@@ -15,12 +16,6 @@ BatmobileImpl::BatmobileImpl(){
 
 void BatmobileImpl::begin(){
 	Motors.begin();
-
-	if(psramFound()){
-		Serial.printf("PSRAM init: %s, free: %d B\n", psramInit() ? "Yes" : "No", ESP.getFreePsram());
-	}else{
-		Serial.println("No PSRAM detected");
-	}
 
 	disableCore0WDT();
 	disableCore1WDT();
@@ -36,7 +31,11 @@ void BatmobileImpl::begin(){
 	Taillights.begin();
 	Underlights.begin();
 
-	S3.begin();
-	Com.begin();
+	Audio.begin();
+	Battery.begin();
+
+	if(!S3.begin()){
+		printf("S3 begin failed\n");
+	}
 }
 

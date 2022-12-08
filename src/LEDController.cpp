@@ -28,6 +28,7 @@ void LEDController<T>::clear(){
 	blinkColor = T();
 	blinkStartTime = 0;
 	LEDcolor = T();
+	breatheQueued = false;
 
 	write(LEDcolor);
 }
@@ -55,9 +56,31 @@ void LEDController<T>::blinkTwice(T color){
 }
 
 template<typename T>
-void LEDController<T>::blinkContinuous(T color){
+void LEDController<T>::blinkContinuous(T color, uint32_t duration){
 	blink(color);
+	blinkContinuousDuration = duration;
 	LEDstate = Continuous;
+}
+
+template<typename T>
+void LEDController<T>::breathe(T start, T end, size_t period, int16_t loops){
+	if(loops == 0) return;
+
+	breathePeriod = period;
+	breatheLoops = loops;
+	breatheStart = start;
+	breatheEnd = end;
+	breatheLoopCounter = 0;
+	breatheMillis = millis();
+
+	if(LEDstate == Once || LEDstate == Twice){
+		//can't interrupt blinking with breathe command
+		breatheQueued = true;
+		return;
+	}
+
+	LEDstate = Breathe;
+	write(breatheStart);
 }
 
 template<typename T>
@@ -90,9 +113,38 @@ void LEDController<T>::loop(uint micros){
 		blinkState = false;
 		blinkStartTime = 0;
 		blinkColor = T();
-		LEDstate = Solid;
+
+		if(breatheQueued){
+			LEDstate = Breathe;
+		}else{
+			LEDstate = Solid;
+		}
+
 		pushVal = LEDcolor;
 		push = true;
+	}else if(LEDstate == Breathe){
+		if(millis() - breatheMillis >= breathePeriod){
+			breatheMillis = millis();
+			if(breatheLoops != -1){
+				breatheLoopCounter++;
+				if(breatheLoopCounter >= breatheLoops){
+					LEDstate = Solid;
+					pushVal = LEDcolor;
+					write(pushVal);
+					return;
+				}
+			}
+		}
+		push = true;
+
+		float t = 0.5 * cos(2 * PI * (millis() - breatheMillis) / breathePeriod) + 0.5;
+
+		T startPart = breatheStart;
+		startPart *= t;
+		T endPart = breatheEnd;
+		endPart *= (1.0f - t);
+		pushVal = startPart + endPart;
+
 	}
 
 	if(push){
@@ -115,7 +167,7 @@ void SingleLEDController::write(uint8_t val){
 }
 
 
-template class LEDController<glm::vec<3, uint8_t>>;
+template class LEDController<glm::vec3>;
 RGBLEDController::RGBLEDController(std::initializer_list<uint8_t> pins, std::initializer_list<uint8_t> channels) : pins(pins), channels(channels){ }
 
 void RGBLEDController::init(){
@@ -126,7 +178,7 @@ void RGBLEDController::init(){
 	}
 }
 
-void RGBLEDController::write(glm::vec<3, uint8_t> val){
+void RGBLEDController::write(glm::vec3 val){
 	for(uint8_t i = 0; i < 3; i++){
 		ledcWrite(channels[i], val[i]);
 	}

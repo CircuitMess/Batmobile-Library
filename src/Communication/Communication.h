@@ -5,7 +5,7 @@
 #include <AsyncTCP.h>
 #include <ComType.h>
 #include "ComListener.h"
-#include "SignalSender.h"
+#include "InfoSender.h"
 #include <map>
 #include <set>
 
@@ -30,7 +30,7 @@ private:
 	void processPacket(const ControlPacket& packet) override;
 
 	std::map<ComType, std::unordered_set<ComListener*>> listeners;
-	SignalSender signalSender;
+	InfoSender infoSender;
 };
 
 extern Communication Com;

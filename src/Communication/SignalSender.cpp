@@ -1,25 +1,5 @@
-#include <Loop/LoopManager.h>
-#include <esp_wifi.h>
 #include "SignalSender.h"
-#include "Communication.h"
-
-SignalSender::SignalSender(){}
-
-SignalSender::~SignalSender(){
-	LoopManager::removeListener(this);
-}
-
-void SignalSender::begin(){
-	LoopManager::addListener(this);
-}
-
-void SignalSender::loop(uint micros){
-	microCounter += micros;
-	if(microCounter >= interval){
-		microCounter = 0;
-		Com.sendSignalStrength(getStrength());
-	}
-}
+#include <esp_wifi.h>
 
 uint8_t SignalSender::getStrength(){
 	wifi_ap_record_t info;

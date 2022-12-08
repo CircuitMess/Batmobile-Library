@@ -2,7 +2,6 @@
 #include <Loop/LoopManager.h>
 #include <soc/efuse_reg.h>
 #include "Pins.hpp"
-#include "Communication/Communication.h"
 
 uint16_t BatteryService::mapReading(uint16_t reading){
 	int mapped = map(reading, 2720, 3310, MIN_VOLT, MAX_VOLT);
@@ -42,7 +41,6 @@ void BatteryService::loop(uint micros){
 	measureVoltage = 0;
 	measureCount = 0;
 
-	Com.sendBattery(getPercentage(), charging());
 
 	if(getVoltage() < MIN_VOLT && !charging()){
 		//TODO:add shutdown

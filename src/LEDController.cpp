@@ -128,8 +128,9 @@ void LEDController<T>::loop(uint micros){
 			if(breatheLoops != -1){
 				breatheLoopCounter++;
 				if(breatheLoopCounter >= breatheLoops){
-					clear();
-					setValue(breatheStart);
+					LEDstate = Solid;
+					pushVal = LEDcolor;
+					write(pushVal);
 					return;
 				}
 			}

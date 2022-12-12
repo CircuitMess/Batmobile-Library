@@ -16,12 +16,12 @@ void InfoSender::loop(uint micros){
 	batteryTime += micros;
 	signalTime += micros;
 
-	if(batteryTime >= batteryInterval){
+	if(batteryTime >= BatteryInterval){
 		batteryTime = 0;
 		Com.sendBattery(Battery.getPercentage(), Battery.charging());
 	}
 
-	if(signalTime >= signalInterval){
+	if(signalTime >= SignalInterval){
 		signalTime = 0;
 		Com.sendSignalStrength(SignalSender::getStrength());
 	}

@@ -86,14 +86,16 @@ void LEDController<T>::breathe(T start, T end, size_t period, int16_t loops){
 template<typename T>
 void LEDController<T>::loop(uint micros){
 	if(LEDstate == Solid) return;
-	if(millis() - blinkStartTime < blinkDuration) return;
+	else if(LEDstate == Twice || LEDstate == Once){
+		if(millis() - blinkStartTime < blinkDuration) return;
+	}else if(LEDstate == Continuous){
+		if(millis() - blinkStartTime < blinkContinuousDuration) return;
+	}
 
 	bool push = false;
 	T pushVal{};
 
 	if(LEDstate == Continuous){
-		if(millis() - blinkStartTime < blinkContinuousDuration) return;
-
 		blinkState = !blinkState;
 		blinkStartTime = millis();
 		pushVal = blinkState ? blinkColor : T();

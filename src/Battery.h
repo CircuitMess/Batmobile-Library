@@ -6,7 +6,7 @@
 
 //TODO: change max and min voltage when hardware arrives
 #define MAX_VOLT 4200
-#define MIN_VOLT 3600
+#define MIN_VOLT 3700
 
 
 class BatteryService : private LoopListener {

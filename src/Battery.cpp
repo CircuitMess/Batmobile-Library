@@ -5,7 +5,7 @@
 #include "Communication/Communication.h"
 
 uint16_t BatteryService::mapReading(uint16_t reading){
-	int mapped = map(reading, 2720, 3310, MIN_VOLT, MAX_VOLT);
+	int mapped = map(reading, 2720, 3310, 3600, 4200);
 	return mapped;
 }
 
@@ -72,7 +72,7 @@ uint8_t BatteryService::getLevel() const{
 }
 
 uint8_t BatteryService::getPercentage() const{
-	int16_t percentage = map(getVoltage(), MIN_VOLT, MAX_VOLT, 0, 100);
+	int16_t percentage = map(constrain(getVoltage(), MIN_VOLT, MAX_VOLT), MIN_VOLT, MAX_VOLT, 0, 100);
 	if(percentage < 0){
 		return 0;
 	}else if(percentage > 100){

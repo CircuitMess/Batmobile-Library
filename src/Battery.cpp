@@ -5,7 +5,7 @@
 #include "Communication/Communication.h"
 
 uint16_t BatteryService::mapReading(uint16_t reading){
-	int mapped = map(reading, 2720, 3310, 3600, MAX_VOLT);
+	int mapped = map(reading, 2720, 3310, 3600, 4200);
 	return mapped;
 }
 

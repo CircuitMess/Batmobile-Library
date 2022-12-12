@@ -9,7 +9,7 @@ Communication::Communication(){}
 Communication::~Communication(){}
 
 void Communication::begin(){
-	signalSender.begin();
+	infoSender.begin();
 }
 
 bool Communication::isWiFiConnected(){

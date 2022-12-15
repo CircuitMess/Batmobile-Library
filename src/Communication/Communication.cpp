@@ -89,6 +89,18 @@ void Communication::processPacket(const ControlPacket& packet){
 				listener->onVolume(packet.data);
 			}
 			break;
+		case ComType::SettingsSound:
+			for(auto& listener: listeners[ComType::SettingsSound]){
+				listener->onSettingsSound();
+			}
+			break;
+		case ComType::Disconnect:
+			for(auto& listener: listeners[ComType::Disconnect]){
+				listener->onDisconnectRequest();
+			}
+			break;
+		default:
+			break;
 	}
 }
 

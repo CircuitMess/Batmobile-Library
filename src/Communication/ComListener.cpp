@@ -27,3 +27,11 @@ void ComListener::onHonk(){
 void ComListener::onVolume(uint8_t volume){
 
 }
+
+void ComListener::onSettingsSound(){
+
+}
+
+void ComListener::onDisconnectRequest(){
+
+}

@@ -47,8 +47,8 @@ void Communication::removeListener(ComType type, ComListener* listener){
 }
 
 void Communication::removeListener(ComListener* listener){
-	for(auto entry: listeners){
-		entry.second.erase(listener);
+	for(const auto& entry: listeners){
+		removeListener(entry.first, listener);
 	}
 }
 

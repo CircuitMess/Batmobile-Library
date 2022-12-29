@@ -5,10 +5,10 @@
 const uint8_t MotorControl::PWM[4] = { 5, 6, 7, 8 };
 
 const std::pair<int8_t, int8_t> MotorControl::Pins[4] = {
-		{ MOTOR_FR_A, MOTOR_FR_B },
 		{ MOTOR_FL_A, MOTOR_FL_B },
-		{ MOTOR_BR_A, MOTOR_BR_B },
-		{ MOTOR_BL_A, MOTOR_BL_B }
+		{ MOTOR_FR_A, MOTOR_FR_B },
+		{ MOTOR_BL_A, MOTOR_BL_B },
+		{ MOTOR_BR_A, MOTOR_BR_B }
 };
 
 void MotorControl::begin(){
@@ -45,6 +45,20 @@ void MotorControl::setBR(int8_t value){
 
 void MotorControl::setBL(int8_t value){
 	setMotorTarget(BackLeft, value);
+}
+
+void MotorControl::setRight(int8_t value){
+	setMotorTarget(FrontRight, value);
+	setMotorTarget(BackRight, value);
+}
+
+void MotorControl::setLeft(int8_t value){
+	setMotorTarget(FrontLeft, value);
+	setMotorTarget(BackLeft, value);
+}
+
+void MotorControl::setAll(int8_t value){
+	setAll({ value, value, value, value });
 }
 
 void MotorControl::setAll(MotorInfo state){
@@ -90,7 +104,7 @@ void MotorControl::sendMotorPWM(Motor motor, int8_t value){
 	// going backward: put B high, drive A with reverse PWM value
 
 	// value is [-100, 100], duty is [0, 255]
-	const bool reverse = (value < 0) ^ (motor == BackLeft || motor == BackRight); // Back motors are reverse
+	const bool reverse = (value < 0) ^ (motor == FrontRight || motor == BackRight); // Right side motors are reverse
 	value = abs(value);
 	auto duty = (uint8_t) std::round(((double) value * 255.0) / 100.0);
 

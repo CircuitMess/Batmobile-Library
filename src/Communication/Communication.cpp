@@ -47,8 +47,8 @@ void Communication::removeListener(ComType type, ComListener* listener){
 }
 
 void Communication::removeListener(ComListener* listener){
-	for(auto entry: listeners){
-		entry.second.erase(listener);
+	for(const auto& entry: listeners){
+		removeListener(entry.first, listener);
 	}
 }
 
@@ -88,6 +88,18 @@ void Communication::processPacket(const ControlPacket& packet){
 			for(auto& listener: listeners[ComType::Volume]){
 				listener->onVolume(packet.data);
 			}
+			break;
+		case ComType::SettingsSound:
+			for(auto& listener: listeners[ComType::SettingsSound]){
+				listener->onSettingsSound();
+			}
+			break;
+		case ComType::Disconnect:
+			for(auto& listener: listeners[ComType::Disconnect]){
+				listener->onDisconnectRequest();
+			}
+			break;
+		default:
 			break;
 	}
 }

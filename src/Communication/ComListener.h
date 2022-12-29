@@ -26,6 +26,16 @@ public:
 	 * @param volume [0-100]
 	 */
 	virtual void onVolume(uint8_t volume);
+
+	/**
+	 * Called specifically in Settings to indicate a change in volume while editing
+	 */
+	virtual void onSettingsSound();
+
+	/**
+	 * Called when Controller requests a disconnect, typically when pairing another device or factory resetting.
+	 */
+	virtual void onDisconnectRequest();
 };
 
 

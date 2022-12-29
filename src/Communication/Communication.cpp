@@ -19,17 +19,18 @@ bool Communication::isWiFiConnected(){
 void Communication::sendBattery(uint8_t percent, bool charging){
 	if(percent > 100) return;
 	if(charging) percent = UINT8_MAX;
-	ControlPacket packet{ComType::Battery, percent};
+	ControlPacket packet{ ComType::Battery, percent };
 	sendPacket(packet);
 }
 
 void Communication::sendSignalStrength(uint8_t percent){
-	ControlPacket packet{ComType::SignalStrength, percent};
+	ControlPacket packet{ ComType::SignalStrength, percent };
 	sendPacket(packet);
 }
 
-void Communication::sendShutdown(std::function<void()> ackCallback){
-
+void Communication::sendShutdownAck(){
+	ControlPacket packet{ ComType::ShutdownAck, 0 };
+	sendPacket(packet);
 }
 
 void Communication::addListener(ComType type, ComListener* listener){
@@ -71,7 +72,7 @@ void Communication::processPacket(const ControlPacket& packet){
 			break;
 		case ComType::DriveMode:
 			for(auto& listener: listeners[ComType::DriveMode]){
-				listener->onDriveMode((DriveMode)packet.data);
+				listener->onDriveMode((DriveMode) packet.data);
 			}
 			break;
 		case ComType::DriveSpeed:
@@ -87,6 +88,11 @@ void Communication::processPacket(const ControlPacket& packet){
 		case ComType::Volume:
 			for(auto& listener: listeners[ComType::Volume]){
 				listener->onVolume(packet.data);
+			}
+			break;
+		case ComType::Shutdown:
+			for(auto& listener: listeners[ComType::Shutdown]){
+				listener->onShutdown();
 			}
 			break;
 		case ComType::SettingsSound:

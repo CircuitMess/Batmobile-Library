@@ -8,7 +8,7 @@ void ComListener::onBoost(bool boost){
 
 }
 
-void ComListener::onDriveDir(uint8_t direction){
+void ComListener::onDriveDir(uint8_t dir){
 
 }
 
@@ -29,6 +29,10 @@ void ComListener::onVolume(uint8_t volume){
 }
 
 void ComListener::onSettingsSound(){
+
+}
+
+void ComListener::onShutdown(){
 
 }
 

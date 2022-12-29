@@ -14,6 +14,9 @@ public:
 	void setFL(int8_t value);
 	void setBR(int8_t value);
 	void setBL(int8_t value);
+	void setRight(int8_t value);
+	void setLeft(int8_t value);
+	void setAll(int8_t value);
 
 	void setAll(MotorInfo state);
 	MotorInfo getAll() const;

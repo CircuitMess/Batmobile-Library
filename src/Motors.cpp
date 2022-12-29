@@ -47,6 +47,20 @@ void MotorControl::setBL(int8_t value){
 	setMotorTarget(BackLeft, value);
 }
 
+void MotorControl::setRight(int8_t value){
+	setMotorTarget(FrontRight, value);
+	setMotorTarget(BackRight, value);
+}
+
+void MotorControl::setLeft(int8_t value){
+	setMotorTarget(FrontLeft, value);
+	setMotorTarget(BackLeft, value);
+}
+
+void MotorControl::setAll(int8_t value){
+	setAll({ value, value, value, value });
+}
+
 void MotorControl::setAll(MotorInfo state){
 	setFR(state.frontRight);
 	setFL(state.frontLeft);

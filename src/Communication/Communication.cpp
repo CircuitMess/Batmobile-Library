@@ -105,6 +105,10 @@ void Communication::processPacket(const ControlPacket& packet){
 				listener->onDisconnectRequest();
 			}
 			break;
+        case ComType::Dance:
+            for(auto& listener: listeners[ComType::Dance]){
+                listener->onDance((DanceType) packet.data);
+            }
 		default:
 			break;
 	}

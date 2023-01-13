@@ -91,5 +91,5 @@ int16_t BatteryService::getVoltOffset(){
 }
 
 bool BatteryService::charging() const{
-	return digitalRead(PIN_CHARGE);
+	return digitalRead(PIN_CHARGE) == LOW;
 }

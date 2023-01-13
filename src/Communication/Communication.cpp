@@ -105,6 +105,26 @@ void Communication::processPacket(const ControlPacket& packet){
 				listener->onDisconnectRequest();
 			}
 			break;
+		case ComType::Headlights:
+			for(auto& listener: listeners[ComType::Headlights]){
+				listener->onFrontlights(packet.data);
+			}
+			break;
+		case ComType::Taillights:
+			for(auto& listener: listeners[ComType::Taillights]){
+				listener->onTaillights(packet.data);
+			}
+			break;
+		case ComType::Underlights:
+			for(auto& listener: listeners[ComType::Underlights]){
+				listener->onUnderlights(packet.data);
+			}
+			break;
+		case ComType::SoundEffect:
+			for(auto& listener: listeners[ComType::SoundEffect]){
+				listener->onSoundEffect(packet.data);
+			}
+			break;
 		default:
 			break;
 	}

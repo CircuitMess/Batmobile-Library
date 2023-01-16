@@ -107,7 +107,7 @@ void Communication::processPacket(const ControlPacket& packet){
 			break;
 		case ComType::Headlights:
 			for(auto& listener: listeners[ComType::Headlights]){
-				listener->onFrontlights(packet.data);
+				listener->onHeadlights(packet.data);
 			}
 			break;
 		case ComType::Taillights:

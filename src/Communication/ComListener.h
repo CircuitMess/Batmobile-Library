@@ -45,7 +45,7 @@ public:
 	 */
 	virtual void onDisconnectRequest(){};
 
-	virtual void onFrontlights(uint8_t val){};
+	virtual void onHeadlights(uint8_t val){};
 
 	virtual void onTaillights(uint8_t val){};
 

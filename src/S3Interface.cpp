@@ -7,6 +7,7 @@
 #define COMM_MODE (0x2)
 #define COMM_FRAME (0x3)
 #define COMM_PROXI (0x4)
+#define COMM_FRAME_GRAY (0x5)
 
 S3Interface::S3Interface() : SPI(VSPI), SS(20000000, SPI_MSBFIRST, SPI_MODE3), recvBuf((uint8_t*) malloc(MaxFrameSize)), recvRing(MaxFrameSize){
 
@@ -82,6 +83,15 @@ std::unique_ptr<DriveInfo> S3Interface::getFrame(){
 	recvRing.write(static_cast<uint8_t*>(recvBuf.get()), size);
 
 	return DriveInfo::deserialize(recvRing, size);
+}
+
+void S3Interface::getFrameGray(uint8_t* buffer){
+	send(COMM_FRAME_GRAY);
+	waitReady();
+
+	SPITransaction trans(SPI, SS);
+
+	trans.recv(buffer, 160*120);
 }
 
 ProximityData S3Interface::getProximity(){

@@ -19,6 +19,7 @@ public:
 	void setMode(DriveMode mode);
 	std::unique_ptr<DriveInfo> getFrame();
 	ProximityData getProximity();
+	void setHue(uint8_t hue);
 
 	void getFrameGray(uint8_t* buffer);
 

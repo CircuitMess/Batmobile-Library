@@ -39,3 +39,7 @@ void ComListener::onShutdown(){
 void ComListener::onDisconnectRequest(){
 
 }
+
+void ComListener::onDance(DanceType dance) {
+
+}

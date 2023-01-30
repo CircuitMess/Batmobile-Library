@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <DriveMode.h>
+#include <DanceType.h>
 
 class ComListener {
 public:
@@ -44,6 +45,8 @@ public:
 	 * Called when Controller requests a disconnect, typically when pairing another device or factory resetting.
 	 */
 	virtual void onDisconnectRequest();
+
+    virtual void onDance(DanceType dance);
 };
 
 

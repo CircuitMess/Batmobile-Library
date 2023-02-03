@@ -11,7 +11,6 @@ class LEDController : public LoopListener {
 public:
 	void begin();
 
-	void setValue(T color);
 	void clear();
 	void setSolid(T color);
 	void blink(T color);
@@ -59,6 +58,8 @@ private:
 	uint16_t breatheLoopCounter;
 
 	static constexpr uint32_t blinkDuration = 200; //[ms]
+
+	void setValue(T color);
 };
 
 

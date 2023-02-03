@@ -20,6 +20,7 @@ class BatmobileImpl {
 public:
 	BatmobileImpl();
 	void begin();
+    void shutdown();
 
 private:
 

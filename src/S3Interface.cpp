@@ -7,6 +7,8 @@
 #define COMM_MODE (0x2)
 #define COMM_FRAME (0x3)
 #define COMM_PROXI (0x4)
+#define COMM_FRAME_GRAY (0x5)
+#define COMM_HUE (0x6)
 
 S3Interface::S3Interface() : SPI(VSPI), SS(20000000, SPI_MSBFIRST, SPI_MODE3), recvBuf((uint8_t*) malloc(MaxFrameSize)), recvRing(MaxFrameSize){
 
@@ -84,6 +86,15 @@ std::unique_ptr<DriveInfo> S3Interface::getFrame(){
 	return DriveInfo::deserialize(recvRing, size);
 }
 
+void S3Interface::getFrameGray(uint8_t* buffer){
+	send(COMM_FRAME_GRAY);
+	waitReady();
+
+	SPITransaction trans(SPI, SS);
+
+	trans.recv(buffer, 160*120);
+}
+
 ProximityData S3Interface::getProximity(){
 	send(COMM_PROXI);
 	waitReady();
@@ -95,6 +106,10 @@ ProximityData S3Interface::getProximity(){
 	memcpy(&proximityData, data, 6);
 
 	return proximityData;
+}
+
+void S3Interface::setHue(uint8_t hue){
+	send(COMM_HUE, hue);
 }
 
 void S3Interface::send(uint8_t byte1, uint8_t byte2, uint8_t byte3, uint8_t byte4){

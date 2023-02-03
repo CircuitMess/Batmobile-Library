@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <DriveMode.h>
+#include <DanceType.h>
 
 class ComListener {
 public:
@@ -52,6 +53,8 @@ public:
 	virtual void onUnderlights(uint8_t color){};
 
 	virtual void onSoundEffect(uint8_t sample){};
+
+    virtual void onDance(DanceType dance){};
 };
 
 

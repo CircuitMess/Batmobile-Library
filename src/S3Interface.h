@@ -20,6 +20,7 @@ public:
 	std::unique_ptr<DriveInfo> getFrame();
 	ProximityData getProximity();
 	void setHue(uint8_t hue);
+	void setShake(bool shake);
 
 	void getFrameGray(uint8_t* buffer);
 

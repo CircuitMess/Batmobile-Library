@@ -9,6 +9,7 @@
 #define COMM_PROXI (0x4)
 #define COMM_FRAME_GRAY (0x5)
 #define COMM_HUE (0x6)
+#define COMM_SHAKE (0x7)
 
 S3Interface::S3Interface() : SPI(VSPI), SS(20000000, SPI_MSBFIRST, SPI_MODE3), recvBuf((uint8_t*) malloc(MaxFrameSize)), recvRing(MaxFrameSize){
 
@@ -110,6 +111,10 @@ ProximityData S3Interface::getProximity(){
 
 void S3Interface::setHue(uint8_t hue){
 	send(COMM_HUE, hue);
+}
+
+void S3Interface::setShake(bool shake){
+	send(COMM_SHAKE, shake);
 }
 
 void S3Interface::send(uint8_t byte1, uint8_t byte2, uint8_t byte3, uint8_t byte4){

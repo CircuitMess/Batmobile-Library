@@ -42,7 +42,7 @@ private:
 	void clearRecv(size_t size);
 	void waitReady();
 
-	static constexpr size_t MaxFrameSize = 8000;
+	static constexpr size_t MaxFrameSize = 10000;
 
 	class SPITransaction {
 	public:

@@ -10,43 +10,51 @@ public:
 	/**
 	 * @param hue HSV format hue divided by 2 [0-180]
 	 */
-	virtual void onBallHue(uint8_t hue);
+	virtual void onBallHue(uint8_t hue){};
 
-	virtual void onBoost(bool boost);
+	virtual void onBoost(bool boost){};
 
 	/**
 	 * @param dir Bitwise OR-ed values of direction buttons,
 	 * lowest to highest bit represents forward, backward, left, right, respectively
 	 */
-	virtual void onDriveDir(uint8_t dir);
+	virtual void onDriveDir(uint8_t dir){};
 
-	virtual void onDriveMode(DriveMode mode);
+	virtual void onDriveMode(DriveMode mode){};
 
 	/**
 	 * @param speed [0-100]
 	 */
-	virtual void onDriveSpeed(uint8_t speed);
+	virtual void onDriveSpeed(uint8_t speed){};
 
-	virtual void onHonk();
+	virtual void onHonk(){};
 
 	/**
 	 * @param volume [0-100]
 	 */
-	virtual void onVolume(uint8_t volume);
+	virtual void onVolume(uint8_t volume){};
 
 	/**
 	 * Called specifically in Settings to indicate a change in volume while editing
 	 */
-	virtual void onSettingsSound();
+	virtual void onSettingsSound(){};
 
-	virtual void onShutdown();
+	virtual void onShutdown(){};
 
 	/**
 	 * Called when Controller requests a disconnect, typically when pairing another device or factory resetting.
 	 */
-	virtual void onDisconnectRequest();
+	virtual void onDisconnectRequest(){};
 
-    virtual void onDance(DanceType dance);
+	virtual void onHeadlights(uint8_t val){};
+
+	virtual void onTaillights(uint8_t val){};
+
+	virtual void onUnderlights(uint8_t color){};
+
+	virtual void onSoundEffect(uint8_t sample){};
+
+    virtual void onDance(DanceType dance){};
 };
 
 

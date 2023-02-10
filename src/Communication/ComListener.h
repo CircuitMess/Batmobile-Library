@@ -55,6 +55,8 @@ public:
 	virtual void onSoundEffect(uint8_t sample){};
 
     virtual void onDance(DanceType dance){};
+
+    virtual void onOverrideSound(bool manual){};
 };
 
 

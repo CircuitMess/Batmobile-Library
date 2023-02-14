@@ -129,6 +129,12 @@ void Communication::processPacket(const ControlPacket& packet){
             for(auto& listener: listeners[ComType::Dance]){
                 listener->onDance((DanceType) packet.data);
             }
+            break;
+        case ComType::OverrideSound:
+            for(auto& listener: listeners[ComType::OverrideSound]){
+                listener->onOverrideSound(packet.data);
+            }
+            break;
 		default:
 			break;
 	}

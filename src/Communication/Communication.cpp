@@ -125,16 +125,26 @@ void Communication::processPacket(const ControlPacket& packet){
 				listener->onSoundEffect(packet.data);
 			}
 			break;
-        case ComType::Dance:
-            for(auto& listener: listeners[ComType::Dance]){
-                listener->onDance((DanceType) packet.data);
-            }
-            break;
-        case ComType::OverrideSound:
-            for(auto& listener: listeners[ComType::OverrideSound]){
-                listener->onOverrideSound(packet.data);
-            }
-            break;
+		case ComType::Dance:
+			for(auto& listener: listeners[ComType::Dance]){
+				listener->onDance((DanceType) packet.data);
+			}
+			break;
+		case ComType::OverrideSound:
+			for(auto& listener: listeners[ComType::OverrideSound]){
+				listener->onOverrideSound(packet.data);
+			}
+			break;
+		case ComType::MotorsTimeout:
+			for(auto& listener: listeners[ComType::MotorsTimeout]){
+				listener->onMotorsTimeout(packet.data);
+			}
+			break;
+		case ComType::MotorsTimeoutClear:
+			for(auto& listener: listeners[ComType::MotorsTimeoutClear]){
+				listener->onMotorsTimeoutClear();
+			}
+			break;
 		default:
 			break;
 	}

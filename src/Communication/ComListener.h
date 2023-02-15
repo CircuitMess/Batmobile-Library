@@ -54,9 +54,13 @@ public:
 
 	virtual void onSoundEffect(uint8_t sample){};
 
-    virtual void onDance(DanceType dance){};
+	virtual void onDance(DanceType dance){};
 
-    virtual void onOverrideSound(bool manual){};
+	virtual void onOverrideSound(bool manual){};
+
+	virtual void onMotorsTimeout(uint8_t duration){};
+
+	virtual void onMotorsTimeoutClear(){};
 };
 
 

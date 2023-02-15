@@ -31,6 +31,14 @@ void MotorControl::begin(){
 	LoopManager::addListener(this);
 }
 
+void MotorControl::end(){
+	for(auto pin : { MOTOR_FL_A, MOTOR_FR_A, MOTOR_BL_A, MOTOR_BR_A, MOTOR_FL_B, MOTOR_FR_B, MOTOR_BL_B, MOTOR_BR_B }){
+		ledcDetachPin(pin);
+		pinMode(pin, OUTPUT);
+		digitalWrite(pin, LOW);
+	}
+}
+
 void MotorControl::setFR(int8_t value){
 	setMotorTarget(FrontRight, value);
 }

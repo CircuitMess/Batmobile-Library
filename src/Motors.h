@@ -9,6 +9,7 @@
 class MotorControl : private LoopListener {
 public:
 	void begin();
+	void end();
 
 	void setFR(int8_t value);
 	void setFL(int8_t value);

@@ -46,17 +46,13 @@ void BatmobileImpl::shutdown() {
     WiFi.mode(WIFI_OFF);
     btStop();
 
-    Underlights.clear();
-    Taillights.clear();
-    Headlights.clear();
-    Motors.stopAll();
+    Underlights.end();
+    Taillights.end();
+    Headlights.end();
+
+    Motors.end();
     Audio.stop();
     //TODO - power down S3 as well
-
-    const uint8_t deinitPins[] = { LED_FRONT, LED_BACK, LED_R, LED_G, LED_B, MOTOR_FR_A, MOTOR_FL_A, MOTOR_BR_A, MOTOR_BL_A };
-    for(const auto& pin: deinitPins){
-        ledcDetachPin(pin);
-    }
 
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);

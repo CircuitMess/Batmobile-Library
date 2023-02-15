@@ -10,6 +10,7 @@ template<typename T>
 class LEDController : public LoopListener {
 public:
 	void begin();
+	void end();
 
 	void clear();
 	void setSolid(T color);
@@ -35,6 +36,7 @@ public:
 
 protected:
 	virtual void init() = 0;
+	virtual void deinit() = 0;
 	virtual void write(T val) = 0;
 
 private:
@@ -70,9 +72,10 @@ public:
 protected:
 	void write(uint8_t val) override;
 
-private:
 	void init() override;
+	void deinit() override;
 
+private:
 	const uint8_t pin;
 	const uint8_t channel;
 };
@@ -85,9 +88,10 @@ public:
 protected:
 	void write(glm::vec3 val) override;
 
-private:
 	void init() override;
+	void deinit() override;
 
+private:
 	const std::vector<uint8_t> pins;
 	const std::vector<uint8_t> channels;
 };

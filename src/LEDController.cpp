@@ -13,6 +13,13 @@ void LEDController<T>::begin(){
 }
 
 template<typename T>
+void LEDController<T>::end(){
+	LoopManager::removeListener(this);
+	clear();
+	deinit();
+}
+
+template<typename T>
 void LEDController<T>::setValue(T color){
 	LEDcolor = color;
 
@@ -164,6 +171,12 @@ void SingleLEDController::init(){
 	ledcAttachPin(pin, channel);
 }
 
+void SingleLEDController::deinit(){
+	ledcDetachPin(pin);
+	pinMode(pin, OUTPUT);
+	digitalWrite(pin, LOW);
+}
+
 void SingleLEDController::write(uint8_t val){
 	ledcWrite(channel, val);
 }
@@ -177,6 +190,14 @@ void RGBLEDController::init(){
 		ledcSetup(channels[i], PWMFreq, PWMResolution);
 		ledcWrite(channels[i], 0);
 		ledcAttachPin(pins[i], channels[i]);
+	}
+}
+
+void RGBLEDController::deinit(){
+	for(uint8_t i = 0; i < 3; i++){
+		ledcDetachPin(pins[i]);
+		pinMode(pins[i], OUTPUT);
+		digitalWrite(pins[i], LOW);
 	}
 }
 

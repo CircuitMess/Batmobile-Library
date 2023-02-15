@@ -13,6 +13,7 @@ public:
 	S3Interface();
 
 	bool begin();
+	bool end();
 
 	void reset();
 

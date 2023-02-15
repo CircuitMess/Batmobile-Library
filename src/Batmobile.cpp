@@ -1,5 +1,6 @@
 #include "Batmobile.h"
 #include <Loop/LoopManager.h>
+#include <esp_wifi.h>
 
 BatmobileImpl Batmobile;
 MotorControl Motors;
@@ -40,9 +41,10 @@ void BatmobileImpl::begin(){
 
 void BatmobileImpl::shutdown() {
     Com.end();
-    adc_power_off();
     WiFi.disconnect(true);
-    WiFi.mode(WIFI_OFF);
+	WiFi.mode(WIFI_OFF);
+	esp_wifi_stop();
+	adc_power_off();
 
     Underlights.end();
     Taillights.end();

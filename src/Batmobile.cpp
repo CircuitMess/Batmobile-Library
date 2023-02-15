@@ -62,6 +62,7 @@ void BatmobileImpl::shutdown() {
 }
 
 void BatmobileImpl::shutdownNotify(){
+	Motors.end();
 	Audio.play(SPIFFS.open("/SFX/disconnect.aac"));
 
 	Underlights.breathe({ 255, 0, 0 }, { 0, 0, 0 }, 6000);

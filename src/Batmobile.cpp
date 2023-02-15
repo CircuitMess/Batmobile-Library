@@ -21,7 +21,6 @@ void BatmobileImpl::begin(){
 	disableCore1WDT();
 
 	WiFi.mode(WIFI_OFF);
-	btStop();
 
 	if(!SPIFFS.begin()){
 		Serial.println("SPIFFS error");
@@ -44,7 +43,6 @@ void BatmobileImpl::shutdown() {
     adc_power_off();
     WiFi.disconnect(true);
     WiFi.mode(WIFI_OFF);
-    btStop();
 
     Underlights.end();
     Taillights.end();

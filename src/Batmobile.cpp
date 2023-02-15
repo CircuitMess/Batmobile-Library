@@ -64,3 +64,15 @@ void BatmobileImpl::shutdown() {
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     esp_deep_sleep_start();
 }
+
+void BatmobileImpl::shutdownNotify(){
+	Audio.play(SPIFFS.open("/SFX/disconnect.aac"));
+
+	Underlights.breathe({ 255, 0, 0 }, { 0, 0, 0 }, 6000);
+	uint32_t t = millis();
+	while(millis() - t <= 3000){
+		Underlights.loop(0);
+	}
+
+	Batmobile.shutdown();
+}

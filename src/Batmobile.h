@@ -20,7 +20,16 @@ class BatmobileImpl {
 public:
 	BatmobileImpl();
 	void begin();
+
+	/**
+	 * Powers off all the system included in the library and puts the ESP into deep sleep.
+	 */
     void shutdown();
+
+	/**
+	 * Plays /SFX/disconnect.aac, fades out underlights, and calls shutdown()
+	 */
+	void shutdownNotify();
 
 private:
 

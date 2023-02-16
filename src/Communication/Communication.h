@@ -19,6 +19,7 @@ public:
 	void sendBattery(uint8_t percent, bool charging);
 	void sendSignalStrength(uint8_t percent);
 	void sendShutdownAck();
+	void sendCameraError(uint8_t errorCode);
 
 	void addListener(ComType type, ComListener* listener);
 	void addListener(std::initializer_list<ComType> type, ComListener* listener);

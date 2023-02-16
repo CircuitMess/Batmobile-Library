@@ -33,6 +33,11 @@ void Communication::sendShutdownAck(){
 	sendPacket(packet);
 }
 
+void Communication::sendCameraError(uint8_t errorCode){
+	ControlPacket packet{ ComType::CameraError, errorCode };
+	sendPacket(packet);
+}
+
 void Communication::addListener(ComType type, ComListener* listener){
 	listeners[type].insert(listener);
 }

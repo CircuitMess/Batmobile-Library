@@ -11,6 +11,7 @@
 #define COMM_HUE (0x6)
 #define COMM_SHAKE (0x7)
 #define COMM_DOWN (0x8)
+#define COMM_ERR (0x9)
 
 S3Interface::S3Interface() : SPI(VSPI), SS(20000000, SPI_MSBFIRST, SPI_MODE3), recvBuf((uint8_t*) malloc(MaxFrameSize)), recvRing(MaxFrameSize){
 
@@ -59,6 +60,13 @@ void S3Interface::reset(){
 	pinMode(S3_MOSI, OUTPUT);
 	SPI.begin(S3_CLK, S3_MISO, S3_MOSI, S3_CS);
 	SPI.setHwCs(false);
+}
+
+bool S3Interface::hasError(){
+	send(COMM_ERR);
+	waitReady();
+	bool err = recv();
+	return err;
 }
 
 void S3Interface::setMode(DriveMode mode){

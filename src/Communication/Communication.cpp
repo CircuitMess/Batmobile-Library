@@ -145,6 +145,11 @@ void Communication::processPacket(const ControlPacket& packet){
 				listener->onMotorsTimeoutClear();
 			}
 			break;
+		case ComType::IdleSounds:
+			for(auto& listener: listeners[ComType::IdleSounds]){
+				listener->onIdleSounds(packet.data);
+			}
+			break;
 		default:
 			break;
 	}

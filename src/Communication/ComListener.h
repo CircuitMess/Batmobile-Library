@@ -61,6 +61,8 @@ public:
 	virtual void onMotorsTimeout(uint8_t duration){};
 
 	virtual void onMotorsTimeoutClear(){};
+
+	virtual void onIdleSounds(bool toggle){};
 };
 
 

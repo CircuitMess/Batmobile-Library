@@ -24,6 +24,8 @@ void AudioSystem::stop(){
 	task.stop(true);
 	delete source;
 	delete dataSource;
+	source = nullptr;
+	dataSource = nullptr;
 }
 
 void AudioSystem::play(File file){

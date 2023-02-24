@@ -33,8 +33,8 @@ void Communication::sendShutdownAck(){
 	sendPacket(packet);
 }
 
-void Communication::sendCameraError(uint8_t errorCode){
-	ControlPacket packet{ ComType::CameraError, errorCode };
+void Communication::sendError(BatError error){
+	ControlPacket packet{ ComType::Error, (uint8_t) error };
 	sendPacket(packet);
 }
 

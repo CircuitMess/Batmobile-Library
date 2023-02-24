@@ -8,6 +8,10 @@
 #include <FS.h>
 #include <Buffer/RingBuffer.h>
 
+enum class S3Error {
+	None, Camera
+};
+
 class S3Interface {
 public:
 	S3Interface();
@@ -17,7 +21,7 @@ public:
 
 	void reset();
 
-	bool hasError();
+	S3Error getError();
 
 	void setMode(DriveMode mode);
 	std::unique_ptr<DriveInfo> getFrame();

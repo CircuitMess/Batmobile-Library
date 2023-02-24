@@ -62,11 +62,11 @@ void S3Interface::reset(){
 	SPI.setHwCs(false);
 }
 
-bool S3Interface::hasError(){
+S3Error S3Interface::getError(){
 	send(COMM_ERR);
 	waitReady();
-	bool err = recv();
-	return err;
+	uint8_t err = recv();
+	return (S3Error) err;
 }
 
 void S3Interface::setMode(DriveMode mode){

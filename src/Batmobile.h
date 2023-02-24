@@ -30,6 +30,7 @@ public:
 	 * Plays /SFX/disconnect.aac, fades out underlights, and calls shutdown()
 	 */
 	void shutdownNotify();
+	void shutdownError();
 
 private:
 

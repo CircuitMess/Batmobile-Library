@@ -63,13 +63,15 @@ void BatmobileImpl::shutdown() {
 
 void BatmobileImpl::shutdownNotify(){
 	Motors.end();
-	Audio.play(SPIFFS.open("/SFX/disconnect.aac"));
+	Audio.play(SPIFFS.open("/SFX/off.aac"));
 
 	Underlights.breathe({ 255, 0, 0 }, { 0, 0, 0 }, 6000);
 	uint32_t t = millis();
 	while(millis() - t <= 3000){
 		Underlights.loop(0);
 	}
+
+	delay(1000);
 
 	Batmobile.shutdown();
 }

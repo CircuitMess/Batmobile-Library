@@ -73,3 +73,19 @@ void BatmobileImpl::shutdownNotify(){
 
 	Batmobile.shutdown();
 }
+
+void BatmobileImpl::shutdownError(){
+	Motors.end();
+	Audio.play(SPIFFS.open("/SFX/error.aac"));
+
+	uint32_t t = millis();
+	while(millis() - t < 4000){
+		Underlights.setSolid({ 255, 0, 0 });
+		delay(500);
+		Underlights.setSolid({ 0, 0, 255 });
+		delay(500);
+	}
+
+	Audio.stop();
+	shutdownNotify();
+}

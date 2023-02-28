@@ -31,6 +31,7 @@ bool S3Interface::end(){
 	SPI.end();
 	pinMode(S3_MOSI, INPUT);
 	digitalWrite(S3_RST, LOW);
+	pinMode(S3_RST, INPUT);
 }
 
 void S3Interface::initPins(){

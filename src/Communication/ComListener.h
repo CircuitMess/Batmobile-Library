@@ -18,7 +18,7 @@ public:
 	 * @param dir Bitwise OR-ed values of direction buttons,
 	 * lowest to highest bit represents forward, backward, left, right, respectively
 	 */
-	virtual void onDriveDir(uint8_t dir){};
+	virtual void onDriveDir(uint8_t dir, uint8_t speed){};
 
 	virtual void onDriveMode(DriveMode mode){};
 

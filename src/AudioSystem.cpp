@@ -28,6 +28,16 @@ void AudioSystem::stop(){
 	dataSource = nullptr;
 }
 
+void AudioSystem::playRepeating(File file) {
+    auto dataSource = new FileDataSource(file);
+
+    PlayJob job = { dataSource, true };
+    playQueue.send(&job);
+
+    running = true;
+    task.running = true;
+}
+
 void AudioSystem::play(File file){
 	auto dataSource = new FileDataSource(file);
 
@@ -52,7 +62,7 @@ void AudioSystem::player(){
 
 			dataSource = next.dataSource;
 			source = new SourceAAC(*dataSource);
-
+            source->setRepeat(next.repeating);
 			output.setSource(source);
 			output.start();
 		}

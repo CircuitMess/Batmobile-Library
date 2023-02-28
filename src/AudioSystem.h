@@ -15,6 +15,7 @@ public:
 	void begin();
 
 	void play(File file);
+    void playRepeating(File file);
 	void stop();
 
 	void setVolume(uint8_t volume);
@@ -31,6 +32,7 @@ private:
 
 	struct PlayJob {
 		FileDataSource* dataSource;
+        bool repeating = false;
 	};
 	Queue playQueue;
 

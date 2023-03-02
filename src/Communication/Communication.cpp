@@ -13,7 +13,16 @@ void Communication::begin(){
 }
 
 bool Communication::isWiFiConnected(){
-	return WiFi.status() == WL_CONNECTED;
+	if(heartbeatCounter < HeartbeatTimeout){
+		return (WiFi.status() == WL_CONNECTED);
+	}else{
+		bool heartbeatCheck = (heartbeatReceived > 0);
+		heartbeatCounter = 0;
+		heartbeatReceived = 0;
+		if(!heartbeatCheck) Serial.println("heartbeatCheck check failed");
+
+		return (WiFi.status() == WL_CONNECTED) && heartbeatCheck;
+	}
 }
 
 void Communication::sendBattery(uint8_t percent, bool charging){
@@ -155,9 +164,26 @@ void Communication::processPacket(const ControlPacket& packet){
 				listener->onIdleSounds(packet.data);
 			}
 			break;
+		case ComType::ControllerBeat:
+			heartbeatReceived++;
+			break;
 		default:
 			break;
 	}
+}
+
+void Communication::onConnect(){
+	heartbeatCounter = 0;
+	heartbeatReceived = 0;
+}
+
+void Communication::onDisconnect(){
+	heartbeatCounter = 0;
+	heartbeatReceived = 0;
+}
+
+void Communication::onLoop(uint micros){
+	heartbeatCounter += micros;
 }
 
 

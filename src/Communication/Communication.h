@@ -15,7 +15,7 @@ public:
 	Communication();
 	~Communication() override;
 
-	void begin();
+	void begin() override;
 
 	void sendBattery(uint8_t percent, bool charging);
 	void sendSignalStrength(uint8_t percent);
@@ -27,12 +27,22 @@ public:
 	void removeListener(ComType type, ComListener* listener);
 	void removeListener(ComListener* listener);
 
+protected:
+	void onLoop(uint micros) override;
+
 private:
 	bool isWiFiConnected() override;
 	void processPacket(const ControlPacket& packet) override;
 
+	void onConnect() override;
+	void onDisconnect() override;
+
 	std::map<ComType, std::unordered_set<ComListener*>> listeners;
 	InfoSender infoSender;
+
+	uint8_t heartbeatReceived = 0;
+	uint32_t heartbeatCounter = 0;
+	static constexpr uint32_t HeartbeatTimeout = 6000000;
 };
 
 extern Communication Com;

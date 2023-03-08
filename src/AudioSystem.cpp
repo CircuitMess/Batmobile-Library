@@ -35,7 +35,6 @@ void AudioSystem::playRepeating(File file) {
     playQueue.send(&job);
 
     running = true;
-    task.running = true;
 }
 
 void AudioSystem::play(File file){

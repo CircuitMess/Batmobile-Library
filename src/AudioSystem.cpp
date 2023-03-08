@@ -41,7 +41,7 @@ void AudioSystem::playRepeating(File file) {
 void AudioSystem::play(File file){
 	auto dataSource = new FileDataSource(file);
 
-	PlayJob job = { dataSource };
+	PlayJob job = { dataSource, false };
 	playQueue.send(&job);
 
 	running = true;

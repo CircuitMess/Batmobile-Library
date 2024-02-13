@@ -114,7 +114,7 @@ void MotorControl::sendMotorPWM(Motor motor, int8_t value){
 	// value is [-100, 100], duty is [0, 255]
 	const bool reverse = (value < 0) ^ (motor == FrontRight || motor == BackRight); // Right side motors are reverse
 	value = abs(value);
-	auto duty = (uint8_t) std::round(((double) value * 255.0) / 100.0);
+	auto duty = (uint8_t) round(((double) value * 255.0) / 100.0);
 
 	if(reverse){
 		digitalWrite(pins.second, HIGH);
@@ -149,8 +149,8 @@ void MotorControl::loop(uint micros){
 
 		stateActual[i] = newValue;
 
-		if(std::round(newValue) != std::round(oldValue)){
-			sendMotorPWM((Motor) i, (int8_t) std::round(newValue));
+		if(round(newValue) != round(oldValue)){
+			sendMotorPWM((Motor) i, (int8_t) round(newValue));
 		}
 	}
 }
